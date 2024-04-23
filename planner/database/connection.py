@@ -5,6 +5,7 @@ from beanie import init_beanie, PydanticObjectId
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from models.events import Event
 from models.users import User
+from models.portfolios import Portfolio
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, Field
 
@@ -17,7 +18,10 @@ class Settings(BaseSettings):
 
     async def initialize_database(self):
         client = AsyncIOMotorClient(self.DATABASE_URL)
-        await init_beanie(database=client["event_db"], document_models=[Event, User])
+
+        await init_beanie(
+            database=client["db1"], document_models=[Event, User, Portfolio]
+        )
 
 
 class Database:
