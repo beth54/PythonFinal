@@ -9,7 +9,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from database.connection import Settings
 from logging_setup import setup_logging
 from routes.events import event_router
+from routes.portfolio import portfolio_router
 from routes.users import user_router
+
 
 setup_logging()
 logger = logging.getLogger(__name__)
@@ -49,6 +51,7 @@ app.add_middleware(
 
 app.include_router(user_router, prefix="/user")
 app.include_router(event_router, prefix="/events")
+app.include_router(portfolio_router, prefix = "/portfolio")
 
 
 @app.get("/")
